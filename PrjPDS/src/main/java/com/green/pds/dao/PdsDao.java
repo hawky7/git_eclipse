@@ -16,4 +16,6 @@ public interface PdsDao {
 
 	List<FilesVo> getFileList(HashMap<String, Object> map);
 
+	void setDelete(HashMap<String, Object> map);
+
 }

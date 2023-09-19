@@ -52,7 +52,8 @@
    
    </select>
    
-   <select id="FileList">
+   <select id="FileList"
+           resultType="com.green.pds.vo.FilesVo">
       
       SELECT   
           FILE_NUM,  IDX,  FILENAME,  FILEEXT,  SFILENAME
@@ -156,6 +157,20 @@
      </foreach>     
    
    </insert>
+   
+   <delete id="PdsDelete">
+     
+     DELETE  FROM BOARD
+      WHERE  IDX = #{ idx  }
+   
+   </delete>
+   
+   <delete id="FileDelete">
+   
+     DELETE  FROM  FILES
+      WHERE  IDX = #{ idx  }
+   
+   </delete>
    
   
 </mapper>

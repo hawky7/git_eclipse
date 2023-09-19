@@ -65,6 +65,22 @@ public class PdsServiceImpl implements PdsService {
 		return   fileList;
 	}
 
+	@Override
+	public void setDelete(HashMap<String, Object> map) {
+		
+		System.out.println("map1:" + map);
+
+		pdsDao.setDelete( map ); // BOARD, FILES 의 IDX 번째 자료를 삭제
+		
+		System.out.println("map2:" + map);
+		
+		// idx 에 해당하는 파일 정보들
+		List<FilesVo>  fileList  =  (List<FilesVo>) map.get("fileList"); 
+		// IDX 에 해당 파일을 삭제
+		PdsFile.delete( fileList );
+		
+	}
+
 }
 
 
