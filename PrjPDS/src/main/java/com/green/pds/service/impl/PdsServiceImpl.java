@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.green.pds.dao.PdsDao;
 import com.green.pds.service.PdsService;
+import com.green.pds.vo.FilesVo;
 import com.green.pds.vo.PdsVo;
 
 @Service("pdsService")
@@ -46,6 +47,22 @@ public class PdsServiceImpl implements PdsService {
 		// Board( <- map), Files( <- map 안의 fileList )
 		pdsDao.setWrite( map );
 		
+	}
+
+	@Override
+	public PdsVo getView(HashMap<String, Object> map) {
+		
+		PdsVo   pdsVo  =  pdsDao.getView( map );
+		
+		return  pdsVo;
+	}
+
+	@Override
+	public List<FilesVo> getFileList(HashMap<String, Object> map) {
+		
+		List<FilesVo>  fileList  =  pdsDao.getFileList( map );
+		
+		return   fileList;
 	}
 
 }

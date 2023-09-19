@@ -56,7 +56,25 @@ public class PdsDaoImpl implements PdsDao {
 		
 	}
 
+	@Override
+	public PdsVo getView(HashMap<String, Object> map) {
+		
+		PdsVo   pdsVo  =  sqlSession.selectOne("Pds.PdsView", map);
+		
+		return  pdsVo;
+	}
+
+	@Override
+	public List<FilesVo> getFileList(HashMap<String, Object> map) {
+		
+		List<FilesVo>  fileList  =  sqlSession.selectList("Pds.FileList", map);
+		
+		return  fileList;
+	}
+
 }
+
+
 
 
 

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.green.menu.service.MenuService;
 import com.green.menu.vo.MenuVo;
 import com.green.pds.service.PdsService;
+import com.green.pds.vo.FilesVo;
 import com.green.pds.vo.PdsVo;
 
 @Controller
@@ -60,13 +60,14 @@ public class PdsController {
 				
 		// 메뉴 목록
 		List<MenuVo>  menuList  =  menuService.getMenuList(); 
+		
 		PdsVo         pdsVo     =  null;
 		if( map.get("idx") != null  ) {   // 답글 처리
 			// pdsVo  =  pdsService.getView(   )
 		}
 		
-		String        menu_id   =  String.valueOf( map.get("menu_id") );		
-		String        menuname  =  menuService.getMenu_name(menu_id);
+		String   menu_id   =  String.valueOf( map.get("menu_id") );
+		String   menuname  =  menuService.getMenu_name( menu_id );
 		map.put("menuname", menuname);
 		
 		ModelAndView  mv  =  new ModelAndView();
@@ -86,9 +87,7 @@ public class PdsController {
 		// 넘어온 정보
 		System.out.println( map );
 		// {lvl=, nref=, bnum=0, step=, writer=aaa, title=aaa, cont=aaaa, menu_id=MENU01}
-		
-	
-		
+				
 		// 저장
 		// map 정보
 		// 1. 새글(답글) 글저장 -> Board table  저장 
@@ -107,7 +106,33 @@ public class PdsController {
 		return  mv;
 	}
 	
-}
+	// /Pds/View?menu_id=${ pds.menu_id }&idx=${ pds.idx }
+	@RequestMapping("/View")
+	public  ModelAndView   view(
+		@RequestParam  HashMap<String, Object>  map	
+			) {
+		
+		// 메뉴 목록
+		List<MenuVo>   menuList  =  menuService.getMenuList();
+		
+		// 조회할 정보 : Board -> pdsVo
+		 PdsVo         pdsVo     =  pdsService.getView( map );
+		
+		// 조회할 파일정보 : Files -> filesVo
+		List<FilesVo>  fileList  =  pdsService.getFileList( map );
+		
+		ModelAndView   mv  =   new ModelAndView();
+		mv.setViewName("pds/view");
+		mv.addObject("menuList",  menuList );
+		mv.addObject("vo",        pdsVo );
+		mv.addObject("fileList",  fileList );
+		mv.addObject("map", map );
+		
+		return  mv;
+	}
+	
+	
+} 
 
 
 
