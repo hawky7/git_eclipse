@@ -171,7 +171,9 @@ public class PdsController {
 		@RequestParam  HashMap<String, Object> map ) {
 	
 		// 메뉴 목록
-		 List<MenuVo>  menuList  =  menuService.getMenuList();
+		List<MenuVo>  menuList  =  menuService.getMenuList();
+		
+		System.out.println(map);
 		
 		// 수정할 자료 조회
 		PdsVo          pdsVo     =  pdsService.getView( map );
