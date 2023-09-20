@@ -200,7 +200,9 @@ public class PdsController {
 		@RequestParam   HashMap<String, Object>  map,
 		HttpServletRequest                       request ) {
 		
+		System.out.println("1:" + map);
 		pdsService.setUpdate( map, request );
+		System.out.println("2:" + map);
 		
 		String        menu_id  =  String.valueOf( map.get("menu_id") );    
 		

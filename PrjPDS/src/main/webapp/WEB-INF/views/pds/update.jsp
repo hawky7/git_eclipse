@@ -37,13 +37,15 @@
 <script>
    
    $( function() {
+	   // 파일추가버튼 클릭
 	   let num = 1;
 	   $('#btnAddFile').on('click', function() {		   
-		   let tag = '<input type="file" name="upfile' + num + '" class="upfile" /><br>';
+		   let tag = '<input type="file" name="upfile' + num + '" class="form-control" /><br>';
 		   $('#tdfile').append( tag );
 		   num++;		 
 	   })
 	   
+	   // 휴지통 클릭
 	   $('.aDelete').on('click', function(e) {  // a tag : 🗑 click		  
 		   e.preventDefault();  // 페이지 이동기능 방지
 		   e.stopPropagation();
@@ -61,6 +63,17 @@
 		    	alert(error); 
 		    } );
 
+	   });
+	   
+	   // submit 기능 구현
+	   $('a[role="submit"]').on('click', function(e) {
+		   e.preventDefault();
+		   e.stopPropagation();
+		   
+		   if( $('[name=title]').val().trim() == ''  )
+			   alert('제목을 입력하세요')
+		   else	   
+		   	  $('form').submit();
 	   })
 	   
    })
@@ -132,7 +145,7 @@
    
    <tr>
     <td colspan="4">
-      <a class="btn btn-primary btn-sm" href="#" role="button" >수정</a> 
+      <a class="btn btn-primary btn-sm" href="#" role="submit" >수정</a> 
       <a class="btn btn-primary btn-sm" href="/" role="button">Home</a>
     </td>
    </tr>
