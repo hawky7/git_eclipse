@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.green.menu.service.MenuService;
@@ -171,9 +172,8 @@ public class PdsController {
 		@RequestParam  HashMap<String, Object> map ) {
 	
 		// 메뉴 목록
-		List<MenuVo>  menuList  =  menuService.getMenuList();
-				
-		
+		List<MenuVo>  menuList   =  menuService.getMenuList();
+			
 		// 수정할 자료 조회
 		PdsVo          pdsVo     =  pdsService.getView( map );
 		
@@ -184,8 +184,7 @@ public class PdsController {
 		
 		// fileList
 		List<FilesVo>  fileList  =  pdsService.getFileList( map );  
-		
-		
+				
 		ModelAndView   mv        =  new  ModelAndView();
 		mv.setViewName("pds/update");
 		mv.addObject("menuList", menuList);
@@ -196,7 +195,20 @@ public class PdsController {
 		
 	}
 	
-	
+	@RequestMapping("/Update")
+	public  ModelAndView  update(
+		@RequestParam   HashMap<String, Object>  map,
+		HttpServletRequest                       request ) {
+		
+		pdsService.setUpdate( map, request );
+		
+		String        menu_id  =  String.valueOf( map.get("menu_id") );    
+		
+		ModelAndView  mv       =  new ModelAndView();
+		mv.setViewName("redirect:/Pds/List?menu_id=" + menu_id);
+		return  mv;
+		
+	}
 		
    //---------------------------------------------------
    // 다운로드
