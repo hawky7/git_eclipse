@@ -173,7 +173,7 @@ public class PdsController {
 		// 메뉴 목록
 		List<MenuVo>  menuList  =  menuService.getMenuList();
 		
-		System.out.println(map);
+		System.out.println("map:" + map);
 		
 		// 수정할 자료 조회
 		PdsVo          pdsVo     =  pdsService.getView( map );
