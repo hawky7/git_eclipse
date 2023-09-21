@@ -110,6 +110,13 @@ public class PdsServiceImpl implements PdsService {
 		
 	}
 
+	@Override
+	public void setReadcountUpdate(HashMap<String, Object> map) {
+		
+		pdsDao.setReadcountUpdate( map );
+		
+	}
+
 }
 
 

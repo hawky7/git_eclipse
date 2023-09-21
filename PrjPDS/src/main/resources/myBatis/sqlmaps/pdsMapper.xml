@@ -206,6 +206,14 @@
        WHERE  IDX    =  #{ idx } 	 
    
    </update>
+   
+   <update id="ReadcountUpdate">
+   
+   UPDATE  BOARD
+    SET    READCOUNT = READCOUNT + 1
+    WHERE  IDX = #{ idx }
+   
+   </update>
   
 </mapper>
 

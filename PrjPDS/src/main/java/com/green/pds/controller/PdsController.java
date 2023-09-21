@@ -66,11 +66,14 @@ public class PdsController {
 	}
 	
 	// 새글: /Pds/WriteForm?menu_id=MENU01&bnum=0
-	// 답글: /Pds/WriteForm?menu_id=MENU01&idx=13&bnum=13&lvl=1&step=1&nref=13
+	// 답글: /Pds/WriteForm?menu_id=MENU01&idx=21&bnum=21&lvl=0&step=0&nref=21
 	@RequestMapping("/WriteForm")
 	public  ModelAndView   writeForm(
 		@RequestParam  HashMap<String, Object>  map) {
-				
+		
+		System.out.println( map );
+		// map: {menu_id=MENU01, idx=31, bnum=21, lvl=0, step=0, nref=21}
+		
 		// 메뉴 목록
 		List<MenuVo>  menuList  =  menuService.getMenuList(); 
 		
@@ -128,8 +131,11 @@ public class PdsController {
 		// 메뉴 목록
 		List<MenuVo>   menuList  =  menuService.getMenuList();
 		
+		// 조회수 증가 (+1)
+		pdsService.setReadcountUpdate( map );
+		
 		// 조회할 정보 : Board -> pdsVo
-		 PdsVo         pdsVo     =  pdsService.getView( map );
+		PdsVo         pdsVo     =  pdsService.getView( map );
 		
 		// 조회할 파일정보 : Files -> filesVo
 		List<FilesVo>  fileList  =  pdsService.getFileList( map );
@@ -137,6 +143,7 @@ public class PdsController {
 		// 현재 메뉴이름
 		String         menu_id   =  pdsVo.getMenu_id();
 		String         menuname  =  menuService.getMenu_name(menu_id);
+
 		
 		ModelAndView   mv  =   new ModelAndView();
 		mv.setViewName("pds/view");
